@@ -9,17 +9,19 @@
 </head>
 <body>
     <div class="container">
-        <div class="overlay">
+        <div id="overlay" class="overlay hide">
             <div class="wrap-iframe">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/-Mta5Q5ZqA0" title="YouTube video player" autoplay;" ></iframe>
+                <iframe id="iframe" width="560" height="315" src="" title="YouTube video player" autoplay;" ></iframe>
                 <button>Download</button>
                 <button>Cancel</button>
             </div>
         </div>
-        <div class="form">
-            <input type="text" placeholder="Insert your youtube Link here!">
-            <button>Search</button>
-        </div>
+        <form id="myForm" action="/api/get-video" method="POST" class="form">
+            <input id="link" name="link" type="text" placeholder="Insert your youtube Link here!" required>
+            <button id="search">Search</button>
+        </form>
     </div>
+
+    <script src="download.js"></script>
 </body>
 </html>
