@@ -4,7 +4,35 @@ document.addEventListener("DOMContentLoaded", downloadHandle);
 function downloadHandle() {
 
     const myForm = document.getElementById("myForm");
+    const cancel = document.getElementById("cancel");
+    const download = document.getElementById("download-now");
     myForm.addEventListener("submit", handleVideo)
+    download.addEventListener("click", handleDownloading);
+    cancel.addEventListener("click", () => {
+        const overlay = document.getElementById("overlay");
+        const iframe = document.getElementById("iframe");
+        iframe.src = "";
+        overlay.classList.remove("show");
+        overlay.classList.add("hide");
+    })
+}
+async function handleDownloading(){
+    const iframe = document.getElementById("iframe");
+    const link = {url: iframe.src}
+    const linkStringfied = JSON.stringify(link);
+    const options  = {
+        method:"POST",
+        headers:{
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        body:linkStringfied
+    }
+    try {
+        fetch("/api/download-now",options).then(res => res.json())
+        .then(data => {alert(data.message)})
+        
+    } catch (error) {console.log(error)}
 }
 async function handleVideo(e) {
     e.preventDefault();
